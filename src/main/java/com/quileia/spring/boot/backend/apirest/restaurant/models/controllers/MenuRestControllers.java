@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quileia.spring.boot.backend.apirest.restaurant.models.entity.Menu;
 import com.quileia.spring.boot.backend.apirest.restaurant.models.services.IMenuService;
 
+//CORS 
 @CrossOrigin(origins = {"http://localhost:4200" } )
 @RestController
 @RequestMapping("/api")
@@ -38,16 +39,14 @@ public class MenuRestControllers {
 	//READ
 	@GetMapping("/menus/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		Menu menu= null;
-		
+		Menu menu= null;		
 		Map<String, Object> response = new HashMap<>();
 		try {
 			menu= menuService.findById(id);
 		} catch(DataAccessException e){
 			response.put( "mensaje", "Error en la Consulta");
 			response.put( "mensaje", e.getMessage().concat(" :").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);	
-			
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);				
 		}
 		if(menu == null) {
 			response.put( "mensaje", "El menu con el Id: ".concat(id.toString().concat(" No extiste en la base de datos")));
@@ -58,9 +57,8 @@ public class MenuRestControllers {
 	
 	//CREATED
 	@PostMapping("/menus")
-	public ResponseEntity<?>  create(@RequestBody Menu menu) {
+	public ResponseEntity<?> create(@RequestBody Menu menu) {
 		Menu menuNew= null;
-		
 		Map<String, Object> response = new HashMap<>();
 		try {
 			menuNew= menuService.save(menu);
@@ -118,7 +116,6 @@ public class MenuRestControllers {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);			
 		}
 		response.put("mensaje", "Menu Eliminado con Exito");
-		//response.put("menu", menuUpdate);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);		
 	}
 	

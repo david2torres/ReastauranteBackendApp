@@ -30,7 +30,30 @@ public class Menu implements Serializable {
 	private String Ingredientes;
 	@Column(nullable = false)
 	private int precio;
-    private String tmenu;
+	@Column(nullable = false)
+	private String dia;
+
+	@Column(nullable = false)
+	private String descuento;
+	
+	
+    public String getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(String descuento) {
+		this.descuento = descuento;
+	}
+
+	public String getDia() {
+		return dia;
+	}
+
+	public void setDia(String dia) {
+		this.dia = dia;
+	}
+
+	private String tmenu;
 
 	public long getId() {
 		return id;
